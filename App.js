@@ -5,14 +5,26 @@ import { useEffect, useState } from 'react';
 
 
 const call = (contact) => {
-  let phoneNumber = contact.phoneNumbers[0].number;
-  console.log('phoneNumber:', phoneNumber);
-  let link = `tel:${phoneNumber}`
-  console.log('link:', link);
-  Linking.canOpenURL(link)
-    .then(supported => Linking.openURL(link))
-    .catch(err => console.error(err));
-}
+  const phoneNumber = contact.phoneNumbers?.[0]?.number;
+  if (phoneNumber) {
+    // Removes non-numeric characters from the phone number if needed
+    const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+    const link = `tel:${formattedPhoneNumber}`;
+    Linking.canOpenURL(link)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(link);
+        } else {
+          console.error("Phone call not supported on this device.");
+        }
+      })
+      .catch(err => console.error(err));
+  } else {
+    console.error("Contact does not have a valid phone number.");
+  }
+};
+
 
 const Item = ({ item }) => (
   <View style={styles.item}>
@@ -23,6 +35,7 @@ const Item = ({ item }) => (
     />
   </View>
 );
+
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
@@ -50,6 +63,7 @@ export default function App() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

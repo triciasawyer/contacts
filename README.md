@@ -20,6 +20,8 @@ The user is able to click on a name within the contact list and their phone numb
 
 ### Links and Resources
 
+[Native Base](https://docs.nativebase.io/?utm_source=HomePage&utm_medium=header&utm_campaign=NativeBase_3)
+
 [Installing expo-contacts](https://www.npmjs.com/package/expo-contacts)
 
 ### Collaborators

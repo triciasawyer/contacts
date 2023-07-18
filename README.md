@@ -8,6 +8,21 @@ Over the next 2 lab coding sessions, you will create your first Phone App. What 
 
 This app uses the native device feature, Contacts. By connecting to my phone, I am able to access my contacts and make a call through this app.
 
+### Demo
+
+When you first open my app, it displays a list of my contacts from my phone, like so:
+
+![Contact](/assets/contact-app.png)
+
+The user is able to click on a name within the contact list and their phone number will pop up for you to call:
+
+![Contact interaction](/assets/contact-app2.png)
+
 ### Links and Resources
 
 [Installing expo-contacts](https://www.npmjs.com/package/expo-contacts)
+
+### Collaborators
+
+- Tim and I worked through this lab together
+- Ryan Gallaways live demo

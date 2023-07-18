@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   contactImage: {
     width: 300,
-    height: 290,
+    height: 300,
     borderRadius: 200,
     marginBottom: 200,
   },

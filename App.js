@@ -3,7 +3,10 @@ import { Button, StyleSheet, Text, View, Linking, FlatList } from 'react-native'
 import * as Contacts from 'expo-contacts';
 import * as SMS from 'expo-sms'; 
 import { useEffect, useState } from 'react';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 
 const call = (contact) => {
   const phoneNumber = contact.phoneNumbers?.[0]?.number;
@@ -42,13 +45,30 @@ const message = async (contact) => {
   }
 };
 
-const Item = ({ item }) => (
+const ContactDetailsScreen = ({ route }) => {
+  const { contact } = route.params;
+  const navigation = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{contact.name}</Text>
+      <Button onPress={() => call(contact)} title="Call" color="blue" />
+      <Button onPress={() => message(contact)} title="Message" color="blue" />
+      <Button onPress={() => navigation.goBack()} title="Go Back" color="blue" />
+      <StatusBar style="auto" />
+    </View>
+  );
+};
+
+const ContactItem = ({ item, navigation }) => (
   <View style={styles.item}>
-    <Button onPress={() => call(item)} title={item.name} color="white" />
-    <Button onPress={() => message(item)} title="Message" color="white" />
+    <Button
+      onPress={() => navigation.navigate('ContactDetails', { contact: item })}
+      title={item.name}
+      color="white"
+    />
   </View>
 );
-
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
@@ -66,17 +86,37 @@ export default function App() {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Contacts</Text>
-      <FlatList
-        data={contacts}
-        renderItem={({ item }) => <Item item={item} />}
-        keyExtractor={item => item.id} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Contacts"
+          options={{ title: 'Contacts' }}
+        >
+          {({ navigation }) => (
+            <View style={styles.container}>
+              <Text style={styles.title}>Contacts</Text>
+              <FlatList
+                data={contacts}
+                renderItem={({ item }) => (
+                  <ContactItem item={item} navigation={navigation} />
+                )}
+                keyExtractor={item => item.id}
+              />
+              <StatusBar style="auto" />
+            </View>
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="ContactDetails"
+          component={ContactDetailsScreen}
+          options={({ route }) => ({
+            title: route.params.contact.name,
+          })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

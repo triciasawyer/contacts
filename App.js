@@ -26,6 +26,7 @@ const call = (contact) => {
   }
 };
 
+// Messaging functionality for users
 const message = async (contact) => {
   const phoneNumber = contact.phoneNumbers?.[0]?.number;
   if (phoneNumber) {

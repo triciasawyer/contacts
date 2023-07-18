@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Linking, FlatList } from 'react-native';
+import { Button, StyleSheet, Text, View, Linking, FlatList, Image } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import * as SMS from 'expo-sms'; 
 import { useEffect, useState } from 'react';
@@ -51,10 +51,18 @@ const ContactDetailsScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      {contact.imageAvailable ? (
+        <Image source={{ uri: contact.image.uri }} style={styles.contactImage} />
+      ) : (
+        <Image source={require('./assets/defaultImg.png')} style={styles.contactImage} />
+      )}
+
       <Text style={styles.title}>{contact.name}</Text>
+      <View style={styles.buttonContainer}>
       <Button onPress={() => call(contact)} title="Call" color="blue" />
-      <Button onPress={() => message(contact)} title="Message" color="blue" />
+      <Button onPress={() => message(contact)} title="Message" color="green" />
       <Button onPress={() => navigation.goBack()} title="Go Back" color="blue" />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -94,7 +102,6 @@ export default function App() {
         >
           {({ navigation }) => (
             <View style={styles.container}>
-              <Text style={styles.title}>Contacts</Text>
               <FlatList
                 data={contacts}
                 renderItem={({ item }) => (
@@ -124,7 +131,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 65,
   },
   item: {
     backgroundColor: '#FF0000',
@@ -133,9 +139,17 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  title: {
-    color: 'black',
-    marginBottom: 10,
-    fontSize: 35,
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingHorizontal: 40,
+    marginBottom: 20,
+  },
+  contactImage: {
+    width: 300,
+    height: 290,
+    borderRadius: 200,
+    marginBottom: 200,
   },
 });

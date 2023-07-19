@@ -24,6 +24,10 @@ The user is able to click on a name within the contact list, where you will be t
 
 [Installing expo-contacts](https://www.npmjs.com/package/expo-contacts)
 
+### Deployment
+
+
+
 ### Collaborators
 
 - Tim Maupin and I worked through this app together

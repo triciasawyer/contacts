@@ -3,7 +3,7 @@ import { Button, StyleSheet, View, Linking, FlatList, Image } from 'react-native
 import * as Contacts from 'expo-contacts';
 import * as SMS from 'expo-sms'; 
 import { useEffect, useState } from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -33,7 +33,7 @@ const call = (contact) => {
 const message = async (contact) => {
   const phoneNumber = contact.phoneNumbers?.[0]?.number;
   if (phoneNumber) {
-    const messageText = "Hey, wyd?";
+    const messageText = " ";
     try {
       await SMS.sendSMSAsync([phoneNumber], messageText);
       console.log("Message sent successfully!");
@@ -47,7 +47,6 @@ const message = async (contact) => {
 
 const ContactDetailsScreen = ({ route }) => {
   const { contact } = route.params;
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -78,7 +77,7 @@ const ContactItem = ({ item, navigation }) => (
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
-
+  
   useEffect(() => {
     const getContacts = async () => {
       const { status } = await Contacts.requestPermissionsAsync();

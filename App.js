@@ -47,6 +47,7 @@ const message = async (contact) => {
 
 const ContactDetailsScreen = ({ route }) => {
   const { contact } = route.params;
+  // const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -70,7 +71,7 @@ const ContactItem = ({ item, navigation }) => (
     <Button
       onPress={() => navigation.navigate('ContactDetails', { contact: item })}
       title={item.name}
-      color="white"
+      color="#333333"
     />
   </View>
 );
@@ -130,9 +131,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    backgroundColor: '#FF0000',
-    padding: 10,
-    width: 185,
+    backgroundColor: '#ADD8E6',
+    padding: 8,
+    width: 275,
     marginVertical: 8,
     marginHorizontal: 16,
   },

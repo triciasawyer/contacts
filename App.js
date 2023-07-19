@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Linking, FlatList, Image } from 'react-native';
+import { Button, StyleSheet, View, Linking, FlatList, Image } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import * as SMS from 'expo-sms'; 
 import { useEffect, useState } from 'react';
@@ -57,11 +57,9 @@ const ContactDetailsScreen = ({ route }) => {
         <Image source={require('./assets/defaultImg.png')} style={styles.contactImage} />
       )}
 
-      <Text style={styles.title}>{contact.name}</Text>
       <View style={styles.buttonContainer}>
       <Button onPress={() => call(contact)} title="Call" color="blue" />
       <Button onPress={() => message(contact)} title="Message" color="green" />
-      <Button onPress={() => navigation.goBack()} title="Go Back" color="blue" />
       </View>
       <StatusBar style="auto" />
     </View>
@@ -143,13 +141,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
-    paddingHorizontal: 40,
-    marginBottom: 20,
+    paddingHorizontal: 15,
+    marginBottom: 60,
   },
   contactImage: {
     width: 300,
     height: 300,
     borderRadius: 200,
-    marginBottom: 200,
+    marginBottom: 120,
   },
 });

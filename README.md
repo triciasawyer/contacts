@@ -28,3 +28,4 @@ The user is able to click on a name within the contact list, where you will be t
 
 - Tim Maupin and I worked through this app together
 - Ryan Gallaways live demo
+- Chat gpt to help debug

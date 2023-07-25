@@ -8,6 +8,14 @@ Over the next 2 lab coding sessions, you will create your first Phone App. What 
 
 This app uses the native device feature, Contacts. By connecting to my phone, I am able to access my contacts and make a call through this app.
 
+### Run
+
+`npx create-expo-app <app name>`
+
+cd into the app
+
+`npx expo start`
+
 ### Demo
 
 When you first open my app, it displays a list of my contacts from my phone, like so:

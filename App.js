@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Linking, FlatList } from 'react-native';
+import { Button, StyleSheet, View, Linking, FlatList, Image } from 'react-native';
 import * as Contacts from 'expo-contacts';
+import * as SMS from 'expo-sms'; 
 import { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 
 const call = (contact) => {
   const phoneNumber = contact.phoneNumbers?.[0]?.number;
@@ -21,25 +25,60 @@ const call = (contact) => {
       })
       .catch(err => console.error(err));
   } else {
-    console.error("Contact does not have a valid phone number.");
+    console.error("This contact does not have a valid phone number.");
   }
 };
 
+// Messaging functionality for users
+const message = async (contact) => {
+  const phoneNumber = contact.phoneNumbers?.[0]?.number;
+  if (phoneNumber) {
+    const messageText = " ";
+    try {
+      await SMS.sendSMSAsync([phoneNumber], messageText);
+      console.log("Message sent successfully!");
+    } catch (error) {
+      console.error("Error sending the message:", error);
+    }
+  } else {
+    console.error("This contact does not have a valid phone number.");
+  }
+};
 
-const Item = ({ item }) => (
+const ContactDetailsScreen = ({ route }) => {
+  const { contact } = route.params;
+  // const navigation = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      {contact.imageAvailable ? (
+        <Image source={{ uri: contact.image.uri }} style={styles.contactImage} />
+      ) : (
+        <Image source={require('./assets/defaultImg.png')} style={styles.contactImage} />
+      )}
+
+      <View style={styles.buttonContainer}>
+      <Button onPress={() => call(contact)} title="Call" color="blue" />
+      <Button onPress={() => message(contact)} title="Message" color="green" />
+      </View>
+      <StatusBar style="auto" />
+    </View>
+  );
+};
+
+const ContactItem = ({ item, navigation }) => (
   <View style={styles.item}>
     <Button
-      onPress={() => call(item)}
+      onPress={() => navigation.navigate('ContactDetails', { contact: item })}
       title={item.name}
-      color="white"
+      color="#333333"
     />
   </View>
 );
 
-
 export default function App() {
   const [contacts, setContacts] = useState([]);
-
+  
   useEffect(() => {
     const getContacts = async () => {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -53,17 +92,36 @@ export default function App() {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Contacts</Text>
-      <FlatList
-        data={contacts}
-        renderItem={({ item }) => <Item item={item} />}
-        keyExtractor={item => item.id} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Contacts"
+          options={{ title: 'Contacts' }}
+        >
+          {({ navigation }) => (
+            <View style={styles.container}>
+              <FlatList
+                data={contacts}
+                renderItem={({ item }) => (
+                  <ContactItem item={item} navigation={navigation} />
+                )}
+                keyExtractor={item => item.id}
+              />
+              <StatusBar style="auto" />
+            </View>
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="ContactDetails"
+          component={ContactDetailsScreen}
+          options={({ route }) => ({
+            title: route.params.contact.name,
+          })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -71,18 +129,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 65,
   },
   item: {
-    backgroundColor: '#FF0000',
-    padding: 10,
-    width: 185,
+    backgroundColor: '#ADD8E6',
+    padding: 8,
+    width: 275,
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  title: {
-    color: 'black',
-    marginBottom: 10,
-    fontSize: 35,
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingHorizontal: 15,
+    marginBottom: 60,
+  },
+  contactImage: {
+    width: 300,
+    height: 300,
+    borderRadius: 200,
+    marginBottom: 120,
   },
 });

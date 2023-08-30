@@ -20,11 +20,11 @@ cd into the app
 
 When you first open my app, it displays a list of my contacts from my phone, like so:
 
-![Contact](/assets/contact-app.png)
+![Contact](/assets/contacts.png)
 
-The user is able to click on a name within the contact list and their phone number will pop up for you to call:
+The user is able to click on a name within the contact list, where you will be taken to their contact profile. You can then either choose to call them or send a message.
 
-![Contact interaction](/assets/contact-app2.png)
+![Contact interaction](/assets/contactProfile.png)
 
 ### Links and Resources
 
@@ -34,5 +34,6 @@ The user is able to click on a name within the contact list and their phone numb
 
 ### Collaborators
 
-- Tim and I worked through this lab together
+- Tim Maupin and I worked through this app together
 - Ryan Gallaways live demo
+- Chat gpt to help debug

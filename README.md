@@ -1,39 +1,39 @@
-# Lab 43 - React Native
+# React Native Mobile App
 
 ## Author: Tricia Sawyer
 
+This project is an opportunity to delve into the capabilities of React Native and harness native device features.
+
+### Getting Started
+
+To run the app, follow these steps:
+
+1. Create a new Expo app: `npx create-expo-app <app name>`
+2. Navigate to the app directory: `cd <app name>`
+3. Start the app: `npx expo start`
+
 ### Features
 
-Over the next 2 lab coding sessions, you will create your first Phone App. What it does and how it looks is up to you. This is an opportunity to play around with whats possible in React Native and to get a feel for how you can get into the various device features.
-
-This app uses the native device feature, Contacts. By connecting to my phone, I am able to access my contacts and make a call through this app.
-
-### Run
-
-`npx create-expo-app <app name>`
-
-cd into the app
-
-`npx expo start`
+This React Native Mobile App leverages the native Contacts feature of your device. By connecting to your phone, it grants access to your contacts and enables you to make calls directly through the app.
 
 ### Demo
 
-When you first open my app, it displays a list of my contacts from my phone, like so:
+Upon opening the app, you'll be greeted with a list of your contacts, as shown below:
 
-![Contact](/assets/contacts.png)
+![Contact List](/assets/contacts.png)
 
-The user is able to click on a name within the contact list, where you will be taken to their contact profile. You can then either choose to call them or send a message.
+Clicking on a contact's name will take you to their profile, where you can choose to call them or send a message:
 
 ![Contact interaction](/assets/contactProfile.png)
 
 ### Links and Resources
 
-[Native Base](https://docs.nativebase.io/?utm_source=HomePage&utm_medium=header&utm_campaign=NativeBase_3)
+[Native Base Documentation](https://docs.nativebase.io/?utm_source=HomePage&utm_medium=header&utm_campaign=NativeBase_3)
 
-[Installing expo-contacts](https://www.npmjs.com/package/expo-contacts)
+[Installing Expo Contacts](https://www.npmjs.com/package/expo-contacts)
 
 ### Collaborators
 
-- Tim Maupin and I worked through this app together
-- Ryan Gallaways live demo
-- Chat gpt to help debug
+- Tim Maupin
+- Ryan Gallaway
+- Chat GPT
